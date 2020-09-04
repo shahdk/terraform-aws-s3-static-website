@@ -216,7 +216,7 @@ variable "cf_cache_forwarded_values" {
     })
     headers                 = set(string)
     query_string            = bool
-    query_string_cache_keys = bool
+    query_string_cache_keys = list(string)
   })
   description = <<-EOD
     (Required) - The forwarded values configuration that specifies how CloudFront handles query strings,
@@ -230,7 +230,7 @@ variable "cf_cache_forwarded_values" {
     }
     headers                 = []
     query_string            = false
-    query_string_cache_keys = false
+    query_string_cache_keys = []
   }
 }
 

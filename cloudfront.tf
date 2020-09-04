@@ -38,7 +38,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     field_level_encryption_id = var.cf_cache_field_level_encryption_id
 
     forwarded_values {
-      cookies                 = var.cf_cache_forwarded_values.cookies
+      cookies {
+        forward           = var.cf_cache_forwarded_values.cookies.forward
+        whitelisted_names = var.cf_cache_forwarded_values.cookies.whitelisted_names
+      }
       headers                 = var.cf_cache_forwarded_values.headers
       query_string            = var.cf_cache_forwarded_values.query_string
       query_string_cache_keys = var.cf_cache_forwarded_values.query_string_cache_keys
