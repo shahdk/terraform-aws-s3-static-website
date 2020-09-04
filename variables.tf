@@ -78,7 +78,7 @@ variable "budget_time_period_start" {
     (Required) The start of the time period covered by the budget. The start date must come before the end date.
     Format: `2017-01-01_12:00`.
   EOD
-  default     = ""
+  default     = "2020-09-01_00:00"
 }
 
 variable "budget_time_unit" {
@@ -87,13 +87,7 @@ variable "budget_time_unit" {
     (Required) The length of time until a budget resets the actual and forecasted spend.
     Valid values: MONTHLY, QUARTERLY, ANNUALLY.
   EOD
-  default     = ""
-
-  validation {
-    condition     = !contains(["MONTHLY", "QUARTERLY", "ANNUALLY"], var.budget_time_unit)
-    error_message = "Valid values for budget time unit are: `MONTHLY`, `QUARTERLY`, `ANNUALLY`."
-  }
-
+  default     = "MONTHLY"
 }
 
 variable "budget_cost_filters" {
@@ -180,10 +174,6 @@ variable "cf_price_class" {
     (Optional) - The price class for this distribution. One of PriceClass_All, PriceClass_200, PriceClass_100
   EOD
   default     = "PriceClass_All"
-  validation {
-    condition     = !contains(["PriceClass_All", "PriceClass_200", "PriceClass_100"], var.cf_price_class)
-    error_message = "Valid values for price class are: `PriceClass_All`, `PriceClass_200`, `PriceClass_100`."
-  }
 }
 
 variable "cf_cache_allowed_methods" {
@@ -255,10 +245,6 @@ variable "cf_cache_lambda_function_association" {
     TF Docs: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#lambda_function_association
   EOD
   default     = []
-  validation {
-    condition     = length(var.cf_cache_lambda_function_association) <= 4
-    error_message = "Max of 4 blocks for lambda_function_association are allowed."
-  }
 }
 
 variable "cf_cache_smooth_streaming" {
@@ -288,10 +274,6 @@ variable "cf_cache_viewer_protocol_policy" {
     One of allow-all, https-only, or redirect-to-https.
   EOD
   default     = "redirect-to-https"
-  validation {
-    condition     = !contains(["allow-all", "https-only", "redirect-to-https"], var.cf_cache_viewer_protocol_policy)
-    error_message = "Valid values are: `allow-all`, `https-only`, `redirect-to-https`."
-  }
 }
 
 variable "cf_cache_geo_restriction" {
@@ -312,10 +294,6 @@ variable "cf_cache_geo_restriction" {
     locations        = []
     restriction_type = "none"
   }
-  validation {
-    condition     = !contains(["none", "whitelist", "blacklist"], var.cf_cache_geo_restriction.restriction_type)
-    error_message = "Valid values for `restriction_type` are: `none`, `blacklist`, `whitelist`."
-  }
 }
 
 variable "cf_viewer_certificate_min_protocol" {
@@ -328,10 +306,6 @@ variable "cf_viewer_certificate_min_protocol" {
     have specified sni-only in ssl_support_method, TLSv1 or later must be specified.
   EOD
   default     = "TLSv1.1_2016"
-  validation {
-    condition     = !contains(["TLSv1", "TLSv1_2016", "TLSv1.1_2016", "TLSv1.2_2018", "TLSv1.2_2019"], var.cf_viewer_certificate_min_protocol.restriction_type)
-    error_message = "Valid values for `TLSv1`, `TLSv1_2016`, `TLSv1.1_2016`, `TLSv1.2_2018`, `TLSv1.2_2019`."
-  }
 }
 
 variable "cf_web_acl_id" {
