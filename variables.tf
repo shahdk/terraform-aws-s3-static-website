@@ -50,7 +50,7 @@ variable "budget_type" {
 variable "budget_limit_amount" {
   type        = string
   description = "(Required) The amount of cost or usage being measured for a budget."
-  default     = ""
+  default     = "20.0"
 }
 
 variable "budget_limit_unit" {
@@ -60,7 +60,7 @@ variable "budget_limit_unit" {
     such as dollars or GB. See [Spend](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/data-type-spend.html)
     documentation.
   EOD
-  default     = ""
+  default     = "USD"
 }
 
 variable "budget_time_period_end" {
