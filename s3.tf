@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "root_domain" {
   provider      = aws.tf-s3
   bucket        = var.root_domain_name
   force_destroy = true
-  acl           = "public-read"
+  acl           = "private"
   website {
     index_document = var.s3_website_index_doc
   }
