@@ -90,7 +90,7 @@ variable "budget_time_unit" {
   default     = ""
 
   validation {
-    condition     = contains(["MONTHLY", "QUARTERLY", "ANNUALLY"], var.budget_time_unit)
+    condition     = !contains(["MONTHLY", "QUARTERLY", "ANNUALLY"], var.budget_time_unit)
     error_message = "Valid values for budget time unit are: `MONTHLY`, `QUARTERLY`, `ANNUALLY`."
   }
 
@@ -181,7 +181,7 @@ variable "cf_price_class" {
   EOD
   default     = "PriceClass_All"
   validation {
-    condition     = contains(["PriceClass_All", "PriceClass_200", "PriceClass_100"], var.cf_price_class)
+    condition     = !contains(["PriceClass_All", "PriceClass_200", "PriceClass_100"], var.cf_price_class)
     error_message = "Valid values for price class are: `PriceClass_All`, `PriceClass_200`, `PriceClass_100`."
   }
 }
@@ -256,7 +256,7 @@ variable "cf_cache_lambda_function_association" {
   EOD
   default     = []
   validation {
-    condition     = length(var.cf_cache_lambda_function_association) > 4
+    condition     = length(var.cf_cache_lambda_function_association) <= 4
     error_message = "Max of 4 blocks for lambda_function_association are allowed."
   }
 }
@@ -289,7 +289,7 @@ variable "cf_cache_viewer_protocol_policy" {
   EOD
   default     = "redirect-to-https"
   validation {
-    condition     = contains(["allow-all", "https-only", "redirect-to-https"], var.cf_cache_viewer_protocol_policy)
+    condition     = !contains(["allow-all", "https-only", "redirect-to-https"], var.cf_cache_viewer_protocol_policy)
     error_message = "Valid values are: `allow-all`, `https-only`, `redirect-to-https`."
   }
 }
@@ -313,7 +313,7 @@ variable "cf_cache_geo_restriction" {
     restriction_type = "none"
   }
   validation {
-    condition     = contains(["none", "whitelist", "blacklist"], var.cf_cache_geo_restriction.restriction_type)
+    condition     = !contains(["none", "whitelist", "blacklist"], var.cf_cache_geo_restriction.restriction_type)
     error_message = "Valid values for `restriction_type` are: `none`, `blacklist`, `whitelist`."
   }
 }
@@ -329,7 +329,7 @@ variable "cf_viewer_certificate_min_protocol" {
   EOD
   default     = "TLSv1.1_2016"
   validation {
-    condition     = contains(["TLSv1", "TLSv1_2016", "TLSv1.1_2016", "TLSv1.2_2018", "TLSv1.2_2019"], var.cf_viewer_certificate_min_protocol.restriction_type)
+    condition     = !contains(["TLSv1", "TLSv1_2016", "TLSv1.1_2016", "TLSv1.2_2018", "TLSv1.2_2019"], var.cf_viewer_certificate_min_protocol.restriction_type)
     error_message = "Valid values for `TLSv1`, `TLSv1_2016`, `TLSv1.1_2016`, `TLSv1.2_2018`, `TLSv1.2_2019`."
   }
 }
