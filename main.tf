@@ -3,9 +3,9 @@ resource "aws_s3_bucket" "root_domain" {
   provider      = aws.tf-s3
   bucket        = var.root_domain_name
   force_destroy = true
-  website {
-    index_document = var.s3_website_index_doc
-  }
+#  website {
+#    index_document = var.s3_website_index_doc
+#  }
   tags = {
     Name = var.root_domain_name
   }
@@ -16,9 +16,9 @@ resource "aws_s3_bucket" "sub_domain" {
   provider      = aws.tf-s3
   bucket        = "www.${var.root_domain_name}"
   force_destroy = true
-  website {
-    redirect_all_requests_to = var.root_domain_name
-  }
+#  website {
+#    redirect_all_requests_to = var.root_domain_name
+#  }
   tags = {
     Name = var.root_domain_name
   }
