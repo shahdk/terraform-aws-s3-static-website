@@ -3,7 +3,6 @@ resource "aws_s3_bucket" "root_domain" {
   provider      = aws.tf-s3
   bucket        = var.root_domain_name
   force_destroy = true
-  acl           = "private"
   website {
     index_document = var.s3_website_index_doc
   }
@@ -17,7 +16,6 @@ resource "aws_s3_bucket" "sub_domain" {
   provider      = aws.tf-s3
   bucket        = "www.${var.root_domain_name}"
   force_destroy = true
-  acl           = "private"
   website {
     redirect_all_requests_to = var.root_domain_name
   }
