@@ -9,7 +9,7 @@ resource "aws_budgets_budget" "budget" {
   time_period_end   = var.budget_time_period_end
   time_period_start = var.budget_time_period_start
   time_unit         = var.budget_time_unit
-  cost_filters      = var.budget_cost_filters
+  cost_filter      = var.budget_cost_filters
 
   dynamic "cost_types" {
     for_each = var.budget_cost_types == null ? [] : [1]
