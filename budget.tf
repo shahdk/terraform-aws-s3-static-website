@@ -1,6 +1,5 @@
 resource "aws_budgets_budget" "budget" {
   count             = var.create_budget_notification ? 1 : 0
-  provider          = aws.tf-budget
   account_id        = var.budget_account_id
   name              = var.budget_name
   budget_type       = var.budget_type

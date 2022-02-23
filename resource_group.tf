@@ -1,6 +1,5 @@
 resource "aws_resourcegroups_group" "website" {
   count    = var.create_resource_group ? 1 : 0
-  provider = aws.tf-resource-group
   name     = "${var.root_domain_name}-resource-group"
 
   resource_query {

@@ -5,7 +5,6 @@
 # To import, go to your AWS Console > Route 53 > your domain > copy the hosted zone id
 # Run ```terraform import aws_route53_zone.hosted_zone <<hosted zone id>>```
 resource "aws_route53_zone" "hosted_zone" {
-  provider = aws.tf-route53
   name     = var.root_domain_name
   tags = {
     Name = var.root_domain_name
@@ -15,7 +14,6 @@ resource "aws_route53_zone" "hosted_zone" {
 
 # Creates the Route53 CName for the certificate manager's DNS validation
 resource "aws_route53_record" "cname_record" {
-  provider = aws.tf-route53
   for_each = {
     for dvo in aws_acm_certificate.certificate.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
@@ -35,7 +33,6 @@ resource "aws_route53_record" "cname_record" {
 
 # Creates A Record for the domain resolving to the cloudfront distribution
 resource "aws_route53_record" "root_domain" {
-  provider = aws.tf-route53
   zone_id  = aws_route53_zone.hosted_zone.zone_id
   name     = var.root_domain_name
   type     = "A"
@@ -49,7 +46,6 @@ resource "aws_route53_record" "root_domain" {
 
 # Creates A Record for the www sub-domain resolving to the cloudfront distribution
 resource "aws_route53_record" "sub_domain" {
-  provider = aws.tf-route53
   zone_id  = aws_route53_zone.hosted_zone.zone_id
   name     = "www.${var.root_domain_name}"
   type     = "A"

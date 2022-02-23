@@ -1,6 +1,5 @@
 # Public S3 bucket with the domain as the bucket name and static site hosting enabled
 resource "aws_s3_bucket" "root_domain" {
-  provider      = aws.tf-s3
   bucket        = var.root_domain_name
   force_destroy = true
 #  website {
@@ -13,7 +12,6 @@ resource "aws_s3_bucket" "root_domain" {
 
 # Private S3 bucket with www sub-domain as the bucket name and redirect to the domain bucket
 resource "aws_s3_bucket" "sub_domain" {
-  provider      = aws.tf-s3
   bucket        = "www.${var.root_domain_name}"
   force_destroy = true
 #  website {
@@ -26,7 +24,6 @@ resource "aws_s3_bucket" "sub_domain" {
 
 # S3 bucket policy for the domain bucket to allow public read and CloudFront access
 data "aws_iam_policy_document" "root_domain" {
-  provider = aws.tf-s3
   statement {
     sid       = "PublicCloudFront"
     effect    = "Allow"
@@ -41,7 +38,6 @@ data "aws_iam_policy_document" "root_domain" {
 
 # Attach bucket policy to domain bucket
 resource "aws_s3_bucket_policy" "root_domain" {
-  provider = aws.tf-s3
   bucket   = aws_s3_bucket.root_domain.id
   policy   = data.aws_iam_policy_document.root_domain.json
 }
@@ -49,7 +45,6 @@ resource "aws_s3_bucket_policy" "root_domain" {
 
 # S3 bucket policy for the www sub-domain bucket to allow CloudFront access
 data "aws_iam_policy_document" "sub_domain" {
-  provider = aws.tf-s3
   policy_id = "PolicyForCloudFrontPrivateContent"
   statement {
     sid       = "PublicCloudFront"
@@ -65,7 +60,6 @@ data "aws_iam_policy_document" "sub_domain" {
 
 # Attach bucket policy to www sub-domain bucket
 resource "aws_s3_bucket_policy" "sub_domain" {
-  provider = aws.tf-s3
   bucket   = aws_s3_bucket.sub_domain.id
   policy   = data.aws_iam_policy_document.sub_domain.json
 }

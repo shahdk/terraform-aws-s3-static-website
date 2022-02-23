@@ -1,11 +1,8 @@
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
-  provider = aws.tf-cloudfront
   comment  = var.root_domain_name
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
-  provider = aws.tf-cloudfront
-
   origin {
     domain_name = aws_s3_bucket.root_domain.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
